@@ -25,10 +25,10 @@ const createUser = async (userData) => {
 const updateUser = async (user, newData) => {
   try {
     const response = await fetch(`${apiUrl}/users/${user.id}`, {
-      method: "patch",
+      method: "PATCH",
       body: JSON.stringify({ user: objectToSnake(newData) }),
       headers: {
-        "content-type": "application/json",
+        "Content-Type": "application/json",
         Authorization: `Token token="${user.token}"`,
       },
     });
