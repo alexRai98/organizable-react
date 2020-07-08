@@ -3,7 +3,7 @@ import { apiUrl, objectToSnake } from "../utils";
 const createUser = async (userData) => {
   try {
     const response = await fetch(`${apiUrl}/users`, {
-      method: "post",
+      method: "POST",
       body: JSON.stringify({ user: objectToSnake(userData) }),
       headers: {
         "Content-Type": "application/json",
@@ -47,9 +47,9 @@ const updateUser = async (user, newData) => {
 const deleteUser = async (user) => {
   try {
     const response = await fetch(`${apiUrl}/users/${user.id}`, {
-      method: "delete",
+      method: "DELETE",
       headers: {
-        "content-type": "application/json",
+        "Content-Type": "application/json",
         Authorization: `Token token="${user.token}"`,
       },
     });

@@ -3,7 +3,7 @@ import { apiUrl } from "../utils";
 const loginUser = async (loginInfo) => {
   try {
     const response = await fetch(`${apiUrl}/login`, {
-      method: "post",
+      method: "POST",
       body: JSON.stringify(loginInfo),
       headers: {
         "content-type": "application/json",
@@ -25,7 +25,7 @@ const loginUser = async (loginInfo) => {
 const logoutUser = async (user) => {
   try {
     const response = await fetch(`${apiUrl}/logout`, {
-      method: "post",
+      method: "POST",
       headers: {
         "content-type": "application/json",
         Authorization: `Token token="${user.token}"`,

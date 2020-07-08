@@ -12,12 +12,14 @@ import { updateUser, deleteUser } from "../services/users";
 import { logoutUser } from "../services/session";
 
 function Profile({ setCurrentPage, user, setUser }) {
-  const [formData, setFormData] = useState({
+  const initialData = {
     username: user.username,
     email: user.email,
     firstName: user.firstName,
     lastName: user.lastName,
-  });
+  };
+
+  const [formData, setFormData] = useState(initialData);
   const [error, setError] = useState(null);
   const [edit, setEdit] = useState(false);
 
@@ -29,7 +31,8 @@ function Profile({ setCurrentPage, user, setUser }) {
     });
   };
 
-  const handleDelete = async () => {
+  const handleDelete = async (event) => {
+    event.preventDefault();
     const { data, error } = await deleteUser(user);
     if (data) {
       setCurrentPage("login");
@@ -40,7 +43,8 @@ function Profile({ setCurrentPage, user, setUser }) {
     }
   };
 
-  const handleLogout = async () => {
+  const handleLogout = async (event) => {
+    event.preventDefault();
     const { data, error } = await logoutUser(user);
     if (data) {
       setCurrentPage("login");
@@ -51,7 +55,8 @@ function Profile({ setCurrentPage, user, setUser }) {
     }
   };
 
-  const handleEdit = async () => {
+  const handleEdit = async (event) => {
+    event.preventDefault();
     const { data, error } = await updateUser(user, formData);
 
     if (data) {
@@ -59,21 +64,6 @@ function Profile({ setCurrentPage, user, setUser }) {
       setEdit(false);
     } else {
       setError(error);
-    }
-  };
-
-  const handleSubmit = async (event, action) => {
-    event.preventDefault();
-    setError(null);
-    switch (action) {
-      case "delete":
-        await handleDelete();
-        break;
-      case "edit":
-        await handleEdit();
-        break;
-      default:
-        break;
     }
   };
 
@@ -118,7 +108,7 @@ function Profile({ setCurrentPage, user, setUser }) {
           }}
         >
           {edit ? (
-            <PrimaryButton onClick={(e) => handleSubmit(e, "edit")}>
+            <PrimaryButton onClick={handleEdit}>
               Save
             </PrimaryButton>
           ) : (
@@ -137,12 +127,13 @@ function Profile({ setCurrentPage, user, setUser }) {
               onClick={(e) => {
                 e.preventDefault();
                 setEdit(false);
+                setFormData(initialData);
               }}
             >
               Cancel
             </WarningButton>
           ) : (
-            <WarningButton onClick={(e) => handleSubmit(e, "delete")}>
+            <WarningButton onClick={handleDelete}>
               Delete
             </WarningButton>
           )}
