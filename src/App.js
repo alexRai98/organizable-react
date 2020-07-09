@@ -24,7 +24,7 @@ function App() {
           user={user}
         />
       ) : null} */}
-      <ViewBoards/>
+      <ViewBoards />
     </MainContainer>
   );
 }
