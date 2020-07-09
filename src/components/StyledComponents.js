@@ -74,6 +74,14 @@ const WarningButton = styled(Button)`
   color: #ffffff;
 `;
 
+const BoardButton = styled(Button)`
+  background: #02102A;
+  color: #ffffff;
+  max-width: 109px;
+  margin-top:5px;
+  margin-bottom:24px;
+`
+
 const Link = styled.a`
   font-size: 14px;
   line-height: 20px;
@@ -90,5 +98,6 @@ export {
   Button,
   PrimaryButton,
   WarningButton,
+  BoardButton,
   Link,
 };

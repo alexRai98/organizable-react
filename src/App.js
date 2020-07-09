@@ -3,6 +3,7 @@ import Login from "./components/Login";
 import SignUp from "./components/SignUp";
 import Profile from "./components/Profile";
 import { MainContainer } from "./components/StyledComponents";
+import ViewBoards from './views/Boards'
 
 function App() {
   const [currentPage, setCurrentPage] = useState("login");
@@ -10,7 +11,7 @@ function App() {
 
   return (
     <MainContainer>
-      {currentPage === "login" ? (
+      {/* {currentPage === "login" ? (
         <Login setCurrentPage={setCurrentPage} setUser={setUser} />
       ) : null}
       {currentPage === "sign-up" ? (
@@ -22,7 +23,8 @@ function App() {
           setUser={setUser}
           user={user}
         />
-      ) : null}
+      ) : null} */}
+      <ViewBoards/>
     </MainContainer>
   );
 }
