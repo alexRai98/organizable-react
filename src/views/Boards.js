@@ -5,19 +5,31 @@ import BoardCreated from "../components/BoardCreated";
 import BoradList from "../components/BoardList";
 import { getBoards, createBoard,deleteBoard } from "../services/boards";
 
-function ViewBoards() {
+function ViewBoards({setCurrentPage,user}) {
   const [input, setInput] = useState("");
   const [boards, setBoards] = useState([]);
 
-  const getData = async () => {
-    const { data, error } = await getBoards();
-    if (data) {
-      setBoards(data);
-    } else {
-      console.log(error);
-    }
+  const getData =() => {
+      async function fethData(){
+          const { data, error } = await getBoards(user);
+          if (data) {
+            setBoards(data);
+          } else {
+            console.log(error);
+          }
+      }
+      fethData();
   };
-  useEffect(() => getData(), []);
+  const logider=(user)=>{
+      if(!user){
+          setCurrentPage("login");
+      }
+  }
+
+  useEffect( getData, []);
+
+  useEffect(()=>logider(user));
+
 
   const hundleInput = (event) => {
     setInput(event.target.value);
@@ -26,7 +38,8 @@ function ViewBoards() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    const { data, error } = await createBoard({ name: input });
+    const create={name: input};
+    const { data, error } = await createBoard(create,user);
     if (data) {
       setInput("");
       setBoards([...boards, data]);
@@ -36,7 +49,7 @@ function ViewBoards() {
   };
 
   const hundleDelete= async(board)=>{
-    const { data, error } = await deleteBoard(board);
+    const { data, error } = await deleteBoard(board,user);
     if (data) {
         getData()
     } else {
