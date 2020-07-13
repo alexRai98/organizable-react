@@ -1,4 +1,4 @@
-const apiUrl = "http://api-organizable.herokuapp.com";
+const apiUrl = "https://api-organizable.herokuapp.com";
 
 const toSnakeCase = (str) =>
   str.replace(/[A-Z]/g, (letter) => `_${letter.toLowerCase()}`);
